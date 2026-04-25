@@ -14,11 +14,15 @@ import 'package:signals_flutter/signals_flutter.dart';
 class CharactersBody extends StatelessWidget {
   final CharactersViewModel viewModel;
   final Account account;
+  final void Function(Character) onDelete;
+  final void Function(Character) onEdit;
 
   const CharactersBody({
     super.key,
     required this.viewModel,
     required this.account,
+    required this.onDelete,
+    required this.onEdit,
   });
 
   @override
@@ -63,8 +67,8 @@ class CharactersBody extends StatelessWidget {
                     final character = characters[index];
                     return CharacterListItem(
                       character: character,
-                      onDelete: () {},
-                      onTap: () {},
+                      onDelete: () => onDelete(character),
+                      onTap: () => onEdit(character),
                     );
                   }, childCount: characters.length),
                 ),

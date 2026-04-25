@@ -26,7 +26,7 @@ final class GetAllCharactersUseCaseImpl implements IGetAllCharactersUseCase {
 
   @override
   Future<ListCharacterResult> call(NoParams params) async {
-     await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 3));
     return _repository.getAllCharacters();
   }
 }
@@ -42,6 +42,20 @@ final class SaveCharacterUseCaseImpl implements ISaveCharacterUseCase {
   Future<CharacterResult> call(CharacterParams params) async {
     await Future.delayed(const Duration(seconds: 3));
     return _repository.saveCharacter(params.character);
+  }
+}
+
+/// use case para atualizar um personagem
+final class UpdateCharacterUseCaseImpl implements IUpdateCharacterUseCase {
+  final ICharacterRepository _repository;
+
+  UpdateCharacterUseCaseImpl({required ICharacterRepository repository})
+    : _repository = repository;
+
+  @override
+  Future<CharacterResult> call(CharacterParams params) async {
+    await Future.delayed(const Duration(seconds: 3));
+    return _repository.updateCharacter(params.character);
   }
 }
 

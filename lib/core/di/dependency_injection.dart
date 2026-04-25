@@ -22,13 +22,14 @@ import '../theme/theme_controller.dart';
 
 final injector = AutoInjector();
 void setupDependencyInjection() {
-
   // Regristração de dependências do Core
   injector.addSingleton<ThemeController>(ThemeController.new);
 
   // Regristração de dependências para Account
   // Repositories e servicos
-  injector.addSingleton<IAccountLocalStorage>(AccountSharedPreferencesService.new);
+  injector.addSingleton<IAccountLocalStorage>(
+    AccountSharedPreferencesService.new,
+  );
   injector.addSingleton<IAccountRepository>(AccountRepositoryImpl.new);
   // Use Cases e Facades
   injector.addSingleton<IAccountFacadeUseCases>(AccountFacadeUsecasesImpl.new);
@@ -36,18 +37,30 @@ void setupDependencyInjection() {
   injector.addSingleton<ISaveAccountUseCase>(SaveAccountUseCaseImpl.new);
   injector.addSingleton<IDeleteAccountUseCase>(DeleteAccountUseCaseImpl.new);
   injector.addSingleton<IUpdateAccountUseCase>(UpdateAccountUseCaseImpl.new);
-  
+
   // Regristração de dependências para Character
   // Repositories e serviços
-  injector.addSingleton<ICharacterLocalStorage>(CharacterSharedPreferencesService.new);
+  injector.addSingleton<ICharacterLocalStorage>(
+    CharacterSharedPreferencesService.new,
+  );
   injector.addSingleton<ICharacterRepository>(CharacterRepositoryImpl.new);
   // Use Cases e Facades
-  injector.addSingleton<ICharacterFacadeUseCases>(CharacterFacadeUseCasesImpl.new);
-  injector.addSingleton<IGetAllCharactersUseCase>(GetAllCharactersUseCaseImpl.new);
-  injector.addSingleton<IGetCharacterByIdUseCase>(GetCharacterByIdUseCaseImpl.new);
+  injector.addSingleton<ICharacterFacadeUseCases>(
+    CharacterFacadeUseCasesImpl.new,
+  );
+  injector.addSingleton<IGetAllCharactersUseCase>(
+    GetAllCharactersUseCaseImpl.new,
+  );
+  injector.addSingleton<IGetCharacterByIdUseCase>(
+    GetCharacterByIdUseCaseImpl.new,
+  );
   injector.addSingleton<ISaveCharacterUseCase>(SaveCharacterUseCaseImpl.new);
-  injector.addSingleton<IDeleteCharacterUseCase>(DeleteCharacterUseCaseImpl.new);
-  
+  injector.addSingleton<IUpdateCharacterUseCase>(
+    UpdateCharacterUseCaseImpl.new,
+  );
+  injector.addSingleton<IDeleteCharacterUseCase>(
+    DeleteCharacterUseCaseImpl.new,
+  );
 
   // viewmodes
   // Account viewmodes

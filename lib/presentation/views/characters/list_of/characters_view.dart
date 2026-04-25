@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'widgets/characters_app_bar.dart';
 import 'widgets/characters_body.dart';
 import 'widgets/characters_floating_button.dart';
-import '../../../../core/di/dependency_injection.dart';
-import '../../../../core/theme/app_theme.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../../domain/models/account_entity.dart';
 import '../../../../domain/models/character_entity.dart';
 import '../../../../domain/models/extensions/character_ui.dart';
@@ -14,6 +13,8 @@ import '../../../widgets/app_drawer.dart';
 import '../../../widgets/loading_indicator.dart';
 import '../../../widgets/star_rating.dart';
 import 'package:signals_flutter/signals_flutter.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/di/dependency_injection.dart';
 
 /// Página de listagem de personagens
 class CharactersView extends StatefulWidget {
@@ -45,7 +46,7 @@ class _CharactersViewState extends State<CharactersView> {
   }
 
   Future<void> _deleteCharacter(Character character) async {
-    // await _viewModel.deleteCharacter(character.id);
+    await _viewModel.commands.deleteCharacter(character.id);
 
     if (mounted) {
       ScaffoldMessenger.of(
@@ -54,13 +55,22 @@ class _CharactersViewState extends State<CharactersView> {
     }
   }
 
+  Future<void> _editCharacter(Character character) async {
+    context.go(AppPaths.characterEdit, extra: character);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CharactersAppBar(state: _viewModel.charactersState),
 
       drawer: AppDrawer(),
-      body: CharactersBody(account: account, viewModel: _viewModel),
+      body: CharactersBody(
+        account: account,
+        viewModel: _viewModel,
+        onDelete: _deleteCharacter,
+        onEdit: _editCharacter,
+      ),
       floatingActionButton: CharactersFab(viewModel: _viewModel),
     );
   }
